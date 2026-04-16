@@ -54,6 +54,11 @@
     --t-fast: 180ms var(--ease);
     --t-base: 300ms var(--ease);
     --t-slow: 500ms var(--ease);
+
+    /* Motion scale */
+    --motion-fast: 0.35s;
+    --motion-base: 0.55s;
+    --motion-slow: 0.8s;
 }
 
 /* Light Theme */
@@ -103,6 +108,38 @@ body.loaded {
     opacity: 1 !important;
 }
 
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .bg-grid {
+        animation: none !important;
+    }
+
+    .orb {
+        animation: none !important;
+    }
+
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .hero-reveal {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
 a {
     text-decoration: none;
 }
@@ -147,6 +184,28 @@ body.light-theme .bg-grid {
     100% {
         transform: translate(60px, 60px);
     }
+}
+
+.bg-mesh {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(10, 132, 255, 0.07), transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 70%, rgba(155, 81, 224, 0.06), transparent 45%),
+        radial-gradient(ellipse 50% 30% at 50% 50%, rgba(0, 212, 255, 0.04), transparent 40%);
+    pointer-events: none;
+}
+
+.bg-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+body.light-theme .bg-noise {
+    opacity: 0.02;
 }
 
 .orb {
@@ -223,6 +282,20 @@ body.light-theme .orb {
     height: var(--nav-h);
     z-index: 1000;
     transition: var(--t-base);
+}
+
+.nav-scroll-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    max-width: 100%;
+    background: var(--grad-brand);
+    box-shadow: 0 0 12px rgba(10, 132, 255, 0.45);
+    z-index: 1001;
+    pointer-events: none;
+    border-radius: 0 2px 2px 0;
 }
 
 .nav-inner {
@@ -508,6 +581,44 @@ body.light-theme .navbar.scrolled {
     max-width: 480px;
     margin-bottom: 40px;
     line-height: 1.7;
+}
+
+/* Hero staggered entrance */
+.hero-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: heroRevealIn var(--motion-base) var(--ease) forwards;
+}
+
+.hero-reveal-1 {
+    animation-delay: 0.06s;
+}
+
+.hero-reveal-2 {
+    animation-delay: 0.12s;
+}
+
+.hero-reveal-3 {
+    animation-delay: 0.2s;
+}
+
+.hero-reveal-4 {
+    animation-delay: 0.28s;
+}
+
+.hero-reveal-5 {
+    animation-delay: 0.36s;
+}
+
+.hero-reveal-6 {
+    animation-delay: 0.44s;
+}
+
+@keyframes heroRevealIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* CTA Buttons */
@@ -884,6 +995,23 @@ body.light-theme .navbar.scrolled {
     border-radius: 2px;
 }
 
+/* Subtle section separators */
+.section-accent {
+    position: relative;
+}
+
+.section-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(720px, 88%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+    pointer-events: none;
+}
+
 /* ===================================================
    ABOUT SECTION
 =================================================== */
@@ -1135,6 +1263,36 @@ body.light-theme .about-section {
     transform: scaleX(1);
 }
 
+.skill-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(120deg,
+            transparent 40%,
+            rgba(255, 255, 255, 0.04) 50%,
+            transparent 60%);
+    background-size: 200% 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t-base);
+}
+
+.skill-card:hover::after {
+    opacity: 1;
+    animation: skillSheen 1.2s var(--ease) forwards;
+}
+
+@keyframes skillSheen {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}
+
 .skill-card-icon {
     width: 52px;
     height: 52px;
@@ -1195,7 +1353,14 @@ body.light-theme .projects-section {
     gap: 28px;
 }
 
+@media (min-width: 900px) {
+    .project-card--featured {
+        grid-column: 1 / -1;
+    }
+}
+
 .project-card {
+    position: relative;
     background: var(--bg-card);
     backdrop-filter: blur(20px);
     border-radius: var(--radius-xl);
@@ -1207,10 +1372,62 @@ body.light-theme .projects-section {
     box-shadow: var(--shadow-sm);
 }
 
+.project-card--featured {
+    border-color: rgba(10, 132, 255, 0.28);
+    box-shadow: var(--shadow-sm), 0 0 0 1px rgba(10, 132, 255, 0.1), var(--glow-sm);
+}
+
+.project-card--featured:hover {
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(10, 132, 255, 0.2), 0 0 48px rgba(10, 132, 255, 0.12);
+}
+
+.project-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 3;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.project-banner--tall {
+    height: 210px;
+}
+
+@media (max-width: 768px) {
+    .project-banner--tall {
+        height: 180px;
+    }
+}
+
 .project-card:hover {
     border-color: var(--border-glow);
     transform: translateY(-10px);
     box-shadow: var(--shadow-lg), var(--glow-blue);
+}
+
+.project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(135deg, rgba(10, 132, 255, 0.06), transparent 45%, rgba(0, 212, 255, 0.05));
+    transition: opacity var(--t-base);
+}
+
+.project-card:hover::after {
+    opacity: 1;
 }
 
 .project-banner {

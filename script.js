@@ -5,6 +5,10 @@
 
 'use strict';
 
+const prefersReducedMotion = () =>
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* ─────────────────────────────────────────────────
    THEME MANAGEMENT
 ───────────────────────────────────────────────── */
@@ -41,27 +45,36 @@ const ThemeManager = (() => {
 
 
 /* ─────────────────────────────────────────────────
-   NAVIGATION
+   NAVIGATION + SCROLL PROGRESS
 ───────────────────────────────────────────────── */
 const NavManager = (() => {
     const navbar = document.getElementById('navbar');
+    const progressEl = document.getElementById('navScrollProgress');
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
 
     let lastScroll = 0;
     let ticking = false;
 
+    const updateScrollProgress = () => {
+        const scrollY = window.scrollY;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollY / scrollHeight) * 100)) : 0;
+        if (progressEl) {
+            progressEl.style.width = `${pct}%`;
+            progressEl.setAttribute('aria-valuenow', String(Math.round(pct)));
+        }
+    };
+
     const updateScrollState = () => {
         const scrollY = window.scrollY;
 
-        // Add scrolled class for background
         if (scrollY > 50) {
             navbar?.classList.add('scrolled');
         } else {
             navbar?.classList.remove('scrolled');
         }
 
-        // Hide/show on scroll direction
         if (scrollY > lastScroll && scrollY > 200) {
             navbar?.style && (navbar.style.transform = 'translateY(-100%)');
         } else {
@@ -69,6 +82,7 @@ const NavManager = (() => {
         }
 
         lastScroll = scrollY;
+        updateScrollProgress();
         ticking = false;
     };
 
@@ -99,7 +113,8 @@ const NavManager = (() => {
             }
         }, { passive: true });
 
-        // Smooth scroll for nav links
+        updateScrollProgress();
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', e => {
                 const href = anchor.getAttribute('href');
@@ -112,7 +127,6 @@ const NavManager = (() => {
                 const top = target.offsetTop - 72;
                 window.scrollTo({ top, behavior: 'smooth' });
 
-                // Close mobile menu if open
                 MobileMenu?.close();
             });
         });
@@ -177,7 +191,6 @@ const ScrollReveal = (() => {
         const elements = document.querySelectorAll('.reveal');
         elements.forEach(el => observer.observe(el));
 
-        // Reveal anything already in the viewport immediately
         setTimeout(() => {
             elements.forEach(el => {
                 const rect = el.getBoundingClientRect();
@@ -199,6 +212,8 @@ const ParallaxOrbs = (() => {
     const orbs = document.querySelectorAll('.orb');
 
     const init = () => {
+        if (prefersReducedMotion()) return;
+
         window.addEventListener('mousemove', e => {
             const cx = e.clientX / window.innerWidth - 0.5;
             const cy = e.clientY / window.innerHeight - 0.5;
@@ -219,6 +234,8 @@ const ParallaxOrbs = (() => {
 ───────────────────────────────────────────────── */
 const CardTilt = (() => {
     const init = () => {
+        if (prefersReducedMotion()) return;
+
         document.querySelectorAll('.project-card').forEach(card => {
             card.addEventListener('mousemove', e => {
                 const r = card.getBoundingClientRect();
@@ -272,13 +289,16 @@ const RippleEffect = (() => {
    DOWNLOAD CV
 ───────────────────────────────────────────────── */
 const CVDownload = (() => {
+    const CV_PATH = 'assets/cv/Helal_CV.pdf';
+    const CV_NAME = 'Abdelrahman_Helal_CV.pdf';
+
     const init = () => {
         const btn = document.getElementById('downloadCV');
         btn?.addEventListener('click', e => {
             e.preventDefault();
             const a = document.createElement('a');
-            a.href = 'assets/cv/Abdelrahman_Ezzeldean_Flutter_Developer_Junior.pdf';
-            a.download = 'Abdelrahman_Ezzeldean_Flutter_Developer.pdf';
+            a.href = CV_PATH;
+            a.download = CV_NAME;
             a.target = '_blank';
             document.body.appendChild(a);
             a.click();
@@ -301,6 +321,104 @@ const SkillTags = (() => {
             });
             tag.addEventListener('mouseleave', () => {
                 tag.style.transform = '';
+            });
+        });
+    };
+
+    return { init };
+})();
+
+
+/* ─────────────────────────────────────────────────
+   HERO STATS COUNTER
+───────────────────────────────────────────────── */
+const HeroStatsCounter = (() => {
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+    const formatFinal = (target) => {
+        if (target === 10) return '10';
+        if (target === 5 || target === 4) return `${target}+`;
+        return String(target);
+    };
+
+    const animateValue = (el, target, durationMs) => {
+        const start = performance.now();
+
+        const step = (now) => {
+            const t = Math.min(1, (now - start) / durationMs);
+            const v = Math.round(target * easeOut(t));
+            el.textContent = String(v);
+            if (t < 1) {
+                requestAnimationFrame(step);
+            } else {
+                el.textContent = formatFinal(target);
+            }
+        };
+
+        requestAnimationFrame(step);
+    };
+
+    const init = () => {
+        const root = document.getElementById('heroStats');
+        if (!root) return;
+
+        const nums = root.querySelectorAll('.stat-num[data-target]');
+
+        const run = () => {
+            nums.forEach((el, i) => {
+                const target = parseInt(el.getAttribute('data-target'), 10);
+                if (Number.isNaN(target)) return;
+
+                if (prefersReducedMotion()) {
+                    el.textContent = formatFinal(target);
+                    return;
+                }
+
+                el.textContent = '0';
+                setTimeout(() => animateValue(el, target, 900 + i * 120), 80);
+            });
+        };
+
+        if (prefersReducedMotion()) {
+            run();
+            return;
+        }
+
+        const io = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    run();
+                    io.disconnect();
+                });
+            },
+            { threshold: 0.25 }
+        );
+        io.observe(root);
+    };
+
+    return { init };
+})();
+
+
+/* ─────────────────────────────────────────────────
+   MAGNETIC BUTTONS (primary CTAs)
+───────────────────────────────────────────────── */
+const MagneticButtons = (() => {
+    const strength = 0.22;
+
+    const init = () => {
+        if (prefersReducedMotion()) return;
+
+        document.querySelectorAll('.btn.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', e => {
+                const r = btn.getBoundingClientRect();
+                const dx = e.clientX - (r.left + r.width / 2);
+                const dy = e.clientY - (r.top + r.height / 2);
+                btn.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
             });
         });
     };
@@ -337,7 +455,7 @@ const devGreeting = () => {
         'background: linear-gradient(135deg,#0A84FF,#00D4FF); color:white; font-size:18px; font-weight:bold; border-radius:8px; padding:8px 16px;'
     );
     console.log('%cInterested in how this was built?', 'font-size:14px; color:#8B9DC3;');
-    console.log('%c→ github.com/AbdelrahmanAddel', 'font-size:13px; color:#0A84FF; font-weight:600;');
+    console.log('%c→ github.com/A-Helal', 'font-size:13px; color:#0A84FF; font-weight:600;');
 };
 
 
@@ -355,5 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
     RippleEffect.init();
     CVDownload.init();
     SkillTags.init();
+    HeroStatsCounter.init();
+    MagneticButtons.init();
     devGreeting();
 });

@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Abdelrahman Ezzeldean — Flutter Developer specializing in Clean Architecture, Bloc/Cubit state management, and high-performance mobile applications.">
+        content="Abdelrahman Helal — Flutter Developer specializing in Clean Architecture, Bloc/Cubit state management, and high-performance mobile applications.">
     <meta name="keywords" content="Flutter Developer, Clean Architecture, Bloc, Dart, Mobile Development, Firebase">
-    <meta name="author" content="Abdelrahman Ezzeldean">
-    <meta property="og:title" content="Abdelrahman Ezzeldean — Flutter Developer">
+    <meta name="author" content="Abdelrahman Helal">
+    <meta property="og:title" content="Abdelrahman Helal — Flutter Developer">
     <meta property="og:description"
         content="Building scalable mobile applications with Clean Architecture and modern state management.">
-    <title>Abdelrahman Ezzeldean — Flutter Developer</title>
+    <title>Abdelrahman Helal — Flutter Developer</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,8 @@
     <!-- === BACKGROUND CANVAS === -->
     <div class="bg-canvas">
         <div class="bg-grid"></div>
+        <div class="bg-mesh" aria-hidden="true"></div>
+        <div class="bg-noise" aria-hidden="true"></div>
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
@@ -32,9 +34,11 @@
 
     <!-- === NAVIGATION === -->
     <nav class="navbar" id="navbar">
+        <div class="nav-scroll-progress" id="navScrollProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+            aria-label="Page scroll progress"></div>
         <div class="nav-inner">
             <div>
-                <div class="nav-logo">AE</div>
+                <div class="nav-logo">AH</div>
                 <div class="nav-tagline">Flutter Developer</div>
             </div>
 
@@ -73,23 +77,23 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-eyebrow">
+                <div class="hero-eyebrow hero-reveal hero-reveal-1">
                     <span class="eyebrow-dot"></span>
                     <span class="eyebrow-text">Available for opportunities</span>
                 </div>
 
                 <h1 class="hero-title">
-                    <span class="greeting">Hi, I'm</span>
-                    <span class="name">Abdelrahman<br>Ezzeldean</span>
+                    <span class="greeting hero-reveal hero-reveal-2">Hi, I'm</span>
+                    <span class="name hero-reveal hero-reveal-3">Abdelrahman<br>Helal</span>
                 </h1>
 
-                <p class="hero-desc">
+                <p class="hero-desc hero-reveal hero-reveal-4">
                     Building scalable, production-ready Flutter applications with
                     <strong>Clean Architecture</strong>, Bloc state management, and exceptional UX.
                 </p>
 
-                <div class="hero-actions">
-                    <a href="#projects" class="btn btn-primary" id="viewProjectsBtn">
+                <div class="hero-actions hero-reveal hero-reveal-5">
+                    <a href="#projects" class="btn btn-primary magnetic" id="viewProjectsBtn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5">
                             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
@@ -97,7 +101,7 @@
                         </svg>
                         View Projects
                     </a>
-                    <a href="#contact" class="btn btn-ghost" id="contactBtn">
+                    <a href="#contact" class="btn btn-ghost magnetic" id="contactBtn">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -106,17 +110,17 @@
                     </a>
                 </div>
 
-                <div class="hero-stats">
+                <div class="hero-stats hero-reveal hero-reveal-6" id="heroStats">
                     <div class="stat">
-                        <div class="stat-num">6+</div>
-                        <div class="stat-label">Projects Built</div>
+                        <div class="stat-num" data-target="5">0</div>
+                        <div class="stat-label">Featured Repos</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-num">10</div>
+                        <div class="stat-num" data-target="10">0</div>
                         <div class="stat-label">Weeks Mentorship</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-num">2+</div>
+                        <div class="stat-num" data-target="4">0</div>
                         <div class="stat-label">Years Experience</div>
                     </div>
                 </div>
@@ -170,7 +174,7 @@
                     <div class="hero-card-icon">🚀</div>
                     <div>
                         <div class="hero-card-text">Open to Work</div>
-                        <div class="hero-card-sub">Junior Flutter Developer</div>
+                        <div class="hero-card-sub">Flutter Developer</div>
                     </div>
                     <div class="hero-card-badge">● Available</div>
                 </div>
@@ -187,7 +191,7 @@
     </section>
 
     <!-- === ABOUT SECTION === -->
-    <section id="about" class="section about-section">
+    <section id="about" class="section about-section section-accent">
         <div class="container">
             <div class="about-grid">
                 <div>
@@ -229,11 +233,11 @@
                         <div class="profile-cover"></div>
                         <div class="profile-body">
                             <div class="profile-avatar-wrap">
-                                <img src="assets/images/profile_image.jpeg" alt="Abdelrahman Ezzeldean"
+                                <img src="assets/images/profile_image.jpg" alt="Abdelrahman Helal"
                                     class="profile-avatar"
-                                    onerror="this.outerHTML='<div class=\'profile-avatar-placeholder\'>AE</div>'">
+                                    onerror="this.outerHTML='<div class=\'profile-avatar-placeholder\'>AH</div>'">
                             </div>
-                            <div class="profile-name">Abdelrahman Ezzeldean</div>
+                            <div class="profile-name">Abdelrahman Helal</div>
                             <div class="profile-role">Flutter Developer</div>
 
                             <div class="profile-divider"></div>
@@ -253,22 +257,23 @@
                                 </div>
                                 <div class="meta-item">
                                     <div class="meta-icon">📅</div>
-                                    <span>Started 2023</span>
+                                    <span>Started 2022</span>
                                 </div>
                             </div>
 
                             <div class="profile-divider"></div>
 
                             <div class="profile-links">
-                                <a href="https://github.com/AbdelrahmanAddel" target="_blank" class="social-btn">
+                                <a href="https://github.com/A-Helal" target="_blank" rel="noopener noreferrer"
+                                    class="social-btn">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                         <path
                                             d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                                     </svg>
                                     GitHub
                                 </a>
-                                <a href="https://linkedin.com/in/abdelrahman-ezzeldean" target="_blank"
-                                    class="social-btn">
+                                <a href="https://www.linkedin.com/in/abdelrahman-helal011/" target="_blank"
+                                    rel="noopener noreferrer" class="social-btn">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                         <path
                                             d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
@@ -284,7 +289,7 @@
     </section>
 
     <!-- === SKILLS SECTION === -->
-    <section id="skills" class="section skills-section">
+    <section id="skills" class="section skills-section section-accent">
         <div class="container">
             <div class="section-header centered reveal">
                 <div class="section-label">What I Do</div>
@@ -312,8 +317,12 @@
                     <div class="skill-tags">
                         <span class="skill-tag">Responsive UI</span>
                         <span class="skill-tag">ScreenUtil</span>
-                        <span class="skill-tag">Custom Widgets</span>
-                        <span class="skill-tag">Animations</span>
+                        <span class="skill-tag">fl_chart</span>
+                        <span class="skill-tag">Lottie</span>
+                        <span class="skill-tag">animate_do</span>
+                        <span class="skill-tag">flutter_animate</span>
+                        <span class="skill-tag">Shimmer</span>
+                        <span class="skill-tag">Glass-style UI</span>
                         <span class="skill-tag">Material Design</span>
                     </div>
                 </div>
@@ -326,6 +335,12 @@
                         <span class="skill-tag">SOLID Principles</span>
                         <span class="skill-tag">Repository Pattern</span>
                         <span class="skill-tag">Factory Pattern</span>
+                        <span class="skill-tag">Observer</span>
+                        <span class="skill-tag">Singleton</span>
+                        <span class="skill-tag">Strategy</span>
+                        <span class="skill-tag">Adapter</span>
+                        <span class="skill-tag">Builder pattern</span>
+                        <span class="skill-tag">MVVM-style UI</span>
                     </div>
                 </div>
 
@@ -335,8 +350,9 @@
                     <div class="skill-tags">
                         <span class="skill-tag">Bloc</span>
                         <span class="skill-tag">Cubit</span>
-                        <span class="skill-tag">flutter_bloc</span>
                         <span class="skill-tag">Provider</span>
+                        <span class="skill-tag">Equatable</span>
+                        <span class="skill-tag">Immutable models</span>
                         <span class="skill-tag">Freezed</span>
                     </div>
                 </div>
@@ -351,6 +367,9 @@
                         <span class="skill-tag">GraphQL</span>
                         <span class="skill-tag">Dio</span>
                         <span class="skill-tag">Retrofit</span>
+                        <span class="skill-tag">Firebase Analytics</span>
+                        <span class="skill-tag">Crashlytics</span>
+                        <span class="skill-tag">Remote Config</span>
                     </div>
                 </div>
 
@@ -363,10 +382,36 @@
                         <span class="skill-tag">Hive</span>
                         <span class="skill-tag">SharedPreferences</span>
                         <span class="skill-tag">Caching</span>
+                        <span class="skill-tag">fpdart</span>
                     </div>
                 </div>
 
                 <div class="skill-card reveal reveal-delay-1">
+                    <div class="skill-card-icon">📲</div>
+                    <div class="skill-card-title">Platform &amp; Product</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Kiosk mode</span>
+                        <span class="skill-tag">Local notifications</span>
+                        <span class="skill-tag">Alarm scheduling</span>
+                        <span class="skill-tag">Timezone handling</span>
+                        <span class="skill-tag">Localization</span>
+                        <span class="skill-tag">Haptics</span>
+                        <span class="skill-tag">In-app audio</span>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal reveal-delay-2">
+                    <div class="skill-card-icon">🎬</div>
+                    <div class="skill-card-title">Media &amp; Documents</div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Camera</span>
+                        <span class="skill-tag">Audio recording</span>
+                        <span class="skill-tag">PDF generation</span>
+                        <span class="skill-tag">Share sheet</span>
+                    </div>
+                </div>
+
+                <div class="skill-card reveal reveal-delay-3">
                     <div class="skill-card-icon">🚀</div>
                     <div class="skill-card-title">DevOps &amp; Testing</div>
                     <div class="skill-tags">
@@ -375,10 +420,12 @@
                         <span class="skill-tag">Unit Testing</span>
                         <span class="skill-tag">Widget Testing</span>
                         <span class="skill-tag">Mockito</span>
+                        <span class="skill-tag">Mocktail</span>
+                        <span class="skill-tag">bloc_test</span>
                     </div>
                 </div>
 
-                <div class="skill-card reveal reveal-delay-2">
+                <div class="skill-card reveal reveal-delay-1">
                     <div class="skill-card-icon">🔧</div>
                     <div class="skill-card-title">Tools &amp; Monitoring</div>
                     <div class="skill-tags">
@@ -387,6 +434,7 @@
                         <span class="skill-tag">FCM</span>
                         <span class="skill-tag">Stripe</span>
                         <span class="skill-tag">Dartz</span>
+                        <span class="skill-tag">Performance Monitoring</span>
                     </div>
                 </div>
             </div>
@@ -394,67 +442,71 @@
     </section>
 
     <!-- === PROJECTS SECTION === -->
-    <section id="projects" class="section projects-section">
+    <section id="projects" class="section projects-section section-accent">
         <div class="container">
             <div class="section-header centered reveal">
                 <div class="section-label">My Work</div>
                 <h2 class="section-title">Featured <span>Projects</span></h2>
                 <p class="section-desc" style="margin-top:16px">
-                    Showcasing my top 3 projects from 6+ completed production applications.
+                    Five curated repositories showcasing architecture, APIs, and product polish — led by my graduation
+                    project, Reciplore.
                 </p>
             </div>
 
             <div class="projects-grid">
-                <!-- CoinGecko -->
-                <div class="project-card reveal reveal-delay-1">
-                    <div class="project-banner" style="background: linear-gradient(135deg, #F5A623 0%, #F7B733 100%);">
+                <!-- Reciplore — flagship -->
+                <div class="project-card project-card--featured reveal reveal-delay-1">
+                    <div class="project-badge">Primary focus · Graduation project</div>
+                    <div class="project-banner project-banner--tall"
+                        style="background: linear-gradient(135deg, #E85D04 0%, #F48C06 45%, #FAA307 100%);">
                         <div class="project-banner-bg"
-                            style="background: radial-gradient(circle at 70% 50%, rgba(255,200,0,0.4), transparent);">
+                            style="background: radial-gradient(circle at 40% 30%, rgba(255,255,255,0.25), transparent);">
+                        </div>
+                        <div class="project-icon-wrap">🍳</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <div class="project-title">Reciplore — Smart Recipe App</div>
+                            <a href="https://github.com/A-Helal/Reciplore" target="_blank" rel="noopener noreferrer"
+                                class="project-link-btn" aria-label="GitHub">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M7 17L17 7M7 7h10v10" />
+                                </svg>
+                            </a>
+                        </div>
+                        <p class="project-desc">
+                            Intelligent cooking companion: discover recipes by category, country, or ingredients; watch
+                            video guides; leave reviews; and shop for ingredients — Flutter front end with a Node.js API
+                            and PostgreSQL/MongoDB data stores.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Flutter</span>
+                            <span class="tech-pill">Cubit / Bloc</span>
+                            <span class="tech-pill">Node.js API</span>
+                            <span class="tech-pill">PostgreSQL</span>
+                            <span class="tech-pill">Firebase Distribution</span>
+                        </div>
+                        <div class="project-features">
+                            <div class="feature-item">Browse by category, country, and available ingredients</div>
+                            <div class="feature-item">Reviews, ratings, and step-by-step video content</div>
+                            <div class="feature-item">Marketplace flow for shopping list items</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CoinFlow -->
+                <div class="project-card reveal reveal-delay-2">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #F5A623 100%);">
+                        <div class="project-banner-bg"
+                            style="background: radial-gradient(circle at 70% 50%, rgba(245,166,35,0.45), transparent);">
                         </div>
                         <div class="project-icon-wrap">₿</div>
                     </div>
                     <div class="project-body">
                         <div class="project-header">
-                            <div class="project-title">CoinGecko — Crypto Tracker</div>
-                            <a href="https://github.com/MohamedNaif/coin_gecko_graduation_project_metorship"
-                                target="_blank" class="project-link-btn" aria-label="GitHub">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M7 17L17 7M7 7h10v10" />
-                                </svg>
-                            </a>
-                        </div>
-                        <p class="project-desc">
-                            Team-based crypto market tracking app with real-time price data, portfolio management,
-                            and secure payment integration — built for production.
-                        </p>
-                        <div class="project-tech">
-                            <span class="tech-pill">Clean Architecture</span>
-                            <span class="tech-pill">Bloc</span>
-                            <span class="tech-pill">CI/CD</span>
-                            <span class="tech-pill">Stripe</span>
-                            <span class="tech-pill">Sentry</span>
-                        </div>
-                        <div class="project-features">
-                            <div class="feature-item">Multi-environment flavors (dev/staging/prod)</div>
-                            <div class="feature-item">Automated CI/CD pipelines</div>
-                            <div class="feature-item">Real-time crash monitoring with Sentry</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SM Store -->
-                <div class="project-card reveal reveal-delay-2">
-                    <div class="project-banner" style="background: linear-gradient(135deg, #0A84FF 0%, #00D4FF 100%);">
-                        <div class="project-banner-bg"
-                            style="background: radial-gradient(circle at 30% 60%, rgba(0,212,255,0.4), transparent);">
-                        </div>
-                        <div class="project-icon-wrap">🛒</div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-header">
-                            <div class="project-title">SM Store — E-Commerce</div>
-                            <a href="https://github.com/AbdelrahmanAddel/sm_store" target="_blank"
+                            <div class="project-title">CoinFlow — Crypto Tracker</div>
+                            <a href="https://github.com/A-Helal/CoinFlow" target="_blank" rel="noopener noreferrer"
                                 class="project-link-btn" aria-label="GitHub">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
@@ -463,36 +515,36 @@
                             </a>
                         </div>
                         <p class="project-desc">
-                            Full-featured e-commerce platform with product catalog, cart management, and
-                            seamless checkout — supporting Arabic &amp; English localization.
+                            Real-time crypto market data via CoinGecko, portfolio management, Firebase Auth (including
+                            biometrics), and responsive light/dark UI — Bloc/Cubit, GoRouter, GetIt, Dio, and Retrofit.
                         </p>
                         <div class="project-tech">
-                            <span class="tech-pill">GraphQL</span>
-                            <span class="tech-pill">Cubit</span>
+                            <span class="tech-pill">Bloc / Cubit</span>
+                            <span class="tech-pill">GoRouter</span>
+                            <span class="tech-pill">Dio &amp; Retrofit</span>
                             <span class="tech-pill">Firebase</span>
-                            <span class="tech-pill">i18n</span>
-                            <span class="tech-pill">Dio</span>
+                            <span class="tech-pill">GetIt</span>
                         </div>
                         <div class="project-features">
-                            <div class="feature-item">Complete e-commerce flow from browse to order</div>
-                            <div class="feature-item">Arabic/English localization with easy_localization</div>
-                            <div class="feature-item">Push notifications via FCM</div>
+                            <div class="feature-item">Portfolio, market, and detailed coin charts</div>
+                            <div class="feature-item">Theming and adaptive tablet / landscape layouts</div>
+                            <div class="feature-item">json_serializable &amp; build_runner pipeline</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- iHealth -->
+                <!-- Laza -->
                 <div class="project-card reveal reveal-delay-3">
-                    <div class="project-banner" style="background: linear-gradient(135deg, #9B51E0 0%, #C471ED 100%);">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #9775FA 0%, #7C3AED 100%);">
                         <div class="project-banner-bg"
-                            style="background: radial-gradient(circle at 60% 40%, rgba(196,113,237,0.4), transparent);">
+                            style="background: radial-gradient(circle at 30% 60%, rgba(255,255,255,0.2), transparent);">
                         </div>
-                        <div class="project-icon-wrap">🏥</div>
+                        <div class="project-icon-wrap">🛍️</div>
                     </div>
                     <div class="project-body">
                         <div class="project-header">
-                            <div class="project-title">iHealth — Medical Assistant</div>
-                            <a href="https://github.com/AbdelrahmanAddel/ihealth-main" target="_blank"
+                            <div class="project-title">Laza — E-Commerce</div>
+                            <a href="https://github.com/A-Helal/laza" target="_blank" rel="noopener noreferrer"
                                 class="project-link-btn" aria-label="GitHub">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
@@ -501,19 +553,96 @@
                             </a>
                         </div>
                         <p class="project-desc">
-                            Healthcare consultation app with AI-powered recommendations for medical
-                            conditions, appointment booking, and doctor-patient chat.
+                            Clean Architecture e-commerce app with JWT auth, product grid, cart, checkout, and profile —
+                            Material 3, go_router navigation, and Dio-powered REST integration.
                         </p>
                         <div class="project-tech">
                             <span class="tech-pill">Clean Architecture</span>
-                            <span class="tech-pill">AI Integration</span>
-                            <span class="tech-pill">Firebase Auth</span>
                             <span class="tech-pill">Cubit</span>
+                            <span class="tech-pill">go_router</span>
+                            <span class="tech-pill">Dio</span>
+                            <span class="tech-pill">shared_preferences</span>
                         </div>
                         <div class="project-features">
-                            <div class="feature-item">AI-based medical recommendations</div>
-                            <div class="feature-item">Secure Firebase authentication</div>
-                            <div class="feature-item">Real-time doctor-patient chat</div>
+                            <div class="feature-item">Splash → welcome → auth → home → cart → checkout flow</div>
+                            <div class="feature-item">Search, categories, and product detail</div>
+                            <div class="feature-item">JWT login/register against REST API</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KTLR_Cat -->
+                <div class="project-card reveal reveal-delay-1">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 100%);">
+                        <div class="project-banner-bg"
+                            style="background: radial-gradient(circle at 60% 40%, rgba(255,255,255,0.15), transparent);">
+                        </div>
+                        <div class="project-icon-wrap">🐱</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <div class="project-title">KTLR_Cat — Cats &amp; Breeds</div>
+                            <a href="https://github.com/A-Helal/KTLR_Cat" target="_blank" rel="noopener noreferrer"
+                                class="project-link-btn" aria-label="GitHub">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M7 17L17 7M7 7h10v10" />
+                                </svg>
+                            </a>
+                        </div>
+                        <p class="project-desc">
+                            Browse TheCatAPI images and breeds with pagination and search, manage favourites, and enjoy
+                            a polished Material 3 UI — Dio client with Result types, get_it DI, and cached images.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Cubit</span>
+                            <span class="tech-pill">Dio</span>
+                            <span class="tech-pill">get_it</span>
+                            <span class="tech-pill">cached_network_image</span>
+                            <span class="tech-pill">Google Fonts</span>
+                        </div>
+                        <div class="project-features">
+                            <div class="feature-item">Breed discovery with search and pagination</div>
+                            <div class="feature-item">Favourites via TheCatAPI</div>
+                            <div class="feature-item">Splash and onboarding experience</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- El-Ahwa -->
+                <div class="project-card reveal reveal-delay-2">
+                    <div class="project-banner" style="background: linear-gradient(135deg, #78350F 0%, #D97706 100%);">
+                        <div class="project-banner-bg"
+                            style="background: radial-gradient(circle at 50% 80%, rgba(255,200,100,0.3), transparent);">
+                        </div>
+                        <div class="project-icon-wrap">☕</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <div class="project-title">El-Ahwa — Coffee House Manager</div>
+                            <a href="https://github.com/A-Helal/El-Ahwa" target="_blank" rel="noopener noreferrer"
+                                class="project-link-btn" aria-label="GitHub">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M7 17L17 7M7 7h10v10" />
+                                </svg>
+                            </a>
+                        </div>
+                        <p class="project-desc">
+                            Operations app for Egyptian ahwa owners: orders, drink customization (shai, Turkish coffee,
+                            karkade), pending queue, and daily analytics — Cubit state management with Firebase Auth &
+                            Firestore.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-pill">Cubit</span>
+                            <span class="tech-pill">Firebase Auth</span>
+                            <span class="tech-pill">Firestore</span>
+                            <span class="tech-pill">SOLID &amp; patterns</span>
+                        </div>
+                        <div class="project-features">
+                            <div class="feature-item">Order lifecycle and drink factory-style modeling</div>
+                            <div class="feature-item">Daily sales and top-selling drinks</div>
+                            <div class="feature-item">Built for real venue workflows in Cairo</div>
                         </div>
                     </div>
                 </div>
@@ -522,7 +651,7 @@
     </section>
 
     <!-- === CONTACT SECTION === -->
-    <section id="contact" class="section contact-section">
+    <section id="contact" class="section contact-section section-accent">
         <div class="container">
             <div class="contact-grid">
                 <div>
@@ -537,32 +666,34 @@
                     </p>
 
                     <div class="contact-list reveal reveal-delay-2">
-                        <a href="mailto:abdelrahmanezzeldean@gmail.com" class="contact-item">
+                        <a href="mailto:abdelrahmanhelal41@gmail.com" class="contact-item">
                             <div class="contact-item-icon">📧</div>
                             <div>
                                 <div class="contact-item-label">Email</div>
-                                <div class="contact-item-val">abdelrahmanezzeldean@gmail.com</div>
+                                <div class="contact-item-val">abdelrahmanhelal41@gmail.com</div>
                             </div>
                         </a>
-                        <a href="tel:+201115458569" class="contact-item">
+                        <a href="tel:+201128414829" class="contact-item">
                             <div class="contact-item-icon">📱</div>
                             <div>
                                 <div class="contact-item-label">Phone</div>
-                                <div class="contact-item-val">+20 111 545 8569</div>
+                                <div class="contact-item-val">+20 112 841 4829</div>
                             </div>
                         </a>
-                        <a href="https://github.com/AbdelrahmanAddel" target="_blank" class="contact-item">
+                        <a href="https://github.com/A-Helal" target="_blank" rel="noopener noreferrer"
+                            class="contact-item">
                             <div class="contact-item-icon">💻</div>
                             <div>
                                 <div class="contact-item-label">GitHub</div>
-                                <div class="contact-item-val">github.com/AbdelrahmanAddel</div>
+                                <div class="contact-item-val">github.com/A-Helal</div>
                             </div>
                         </a>
-                        <a href="https://linkedin.com/in/abdelrahman-ezzeldean" target="_blank" class="contact-item">
+                        <a href="https://www.linkedin.com/in/abdelrahman-helal011/" target="_blank"
+                            rel="noopener noreferrer" class="contact-item">
                             <div class="contact-item-icon">💼</div>
                             <div>
                                 <div class="contact-item-label">LinkedIn</div>
-                                <div class="contact-item-val">linkedin.com/in/abdelrahman-ezzeldean</div>
+                                <div class="contact-item-val">linkedin.com/in/abdelrahman-helal011</div>
                             </div>
                         </a>
                     </div>
@@ -575,7 +706,8 @@
                         <div class="contact-panel-desc">
                             Get a full overview of my experience, projects, and technical skills in one place.
                         </div>
-                        <a href="#" class="btn btn-primary" id="downloadCV">
+                        <a href="assets/cv/Helal_CV.pdf" class="btn btn-primary magnetic" id="downloadCV"
+                            download="Abdelrahman_Helal_CV.pdf">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -584,7 +716,7 @@
                             </svg>
                             Download CV
                         </a>
-                        <a href="mailto:abdelrahmanezzeldean@gmail.com" class="btn btn-ghost">
+                        <a href="mailto:abdelrahmanhelal41@gmail.com" class="btn btn-ghost">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -603,8 +735,9 @@
         <div class="container">
             <div class="footer-inner">
                 <div>
-                    <div class="footer-brand">Abdelrahman Ezzeldean</div>
-                    <div class="footer-sub">Flutter Developer crafting exceptional mobile experiences from Cairo, Egypt.
+                    <div class="footer-brand">Abdelrahman Helal</div>
+                    <div class="footer-sub">Flutter Developer crafting exceptional mobile experiences from Cairo,
+                        Egypt.
                     </div>
                 </div>
                 <div class="footer-links">
@@ -616,7 +749,7 @@
                 </div>
             </div>
             <div class="footer-copy">
-                &copy; 2025 Abdelrahman Ezzeldean. Crafted with ❤️ and Flutter passion.
+                &copy; 2026 Abdelrahman Helal. Crafted with care and Flutter passion.
             </div>
         </div>
     </footer>
